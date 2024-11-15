@@ -1,0 +1,176 @@
+:root {
+    --cell-size: 100px;
+    --color: #81c3fd;
+    --color-set: #ff00ff; /* Bright neon purple for cyberpunk feel */
+    --l: 10px;
+    --glow-color: #00ffcc; /* Neon cyan glow for a cyberpunk effect */
+    --background-gradient: linear-gradient(135deg, #3f3cbb, #ff77ff, #00c6ff);
+}
+
+body {
+    margin: 0;
+    background: var(--background-gradient);
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.scoreboard {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 2rem;
+}
+
+.score {
+    margin: 0;
+}
+
+.current-turn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2rem;
+}
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, var(--cell-size));
+    box-shadow: 0 0 40px var(--glow-color), 0 0 80px var(--glow-color);
+    border-radius: 10px;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 2px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+}
+
+.cell:hover {
+    transform: scale(1.1);
+}
+
+.cell.x {
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.8), rgba(0, 0, 0, 0.5));
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    color: #ff00ff;
+    font-size: 4rem;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+.cell.circle {
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.8), rgba(0, 0, 0, 0.5));
+    box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+    color: #00ffcc;
+    font-size: 4rem;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+}
+
+
+#scoreX {
+    color: white; /* White inner color */
+    text-shadow: 
+        0 0 3px white,      /* Inner white glow */
+        0 0 8px #00ccff,    /* Outer neon blue glow */
+        0 0 12px #00ccff,
+        0 0 20px #00ccff;
+    animation: neonGlowX 1.5s ease-in-out infinite alternate;
+}
+
+#scoreO {
+    color: white; /* White inner color */
+    text-shadow: 
+        0 0 3px white,      /* Inner white glow */
+        0 0 8px #ff00ff,    /* Outer neon pink glow */
+        0 0 12px #ff00ff,
+        0 0 20px #ff00ff;
+    animation: neonGlowO 1.5s ease-in-out infinite alternate;
+}
+
+#currentTurn {
+    color: white;
+    text-shadow:
+    0 0 8px #00ccff,  /* Outer neon blue glow */
+    0 0 12px #ff00b7,
+    0 0 20px rgb(109, 0, 204);
+    animation: neonGlowX 1.5s ease-in-out infinite alternate;
+}
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+    box-shadow: 0 0 40px var(--glow-color), 0 0 80px var(--glow-color);
+}
+
+.winning-message button {
+    border-radius: 10px;
+    font-size: 3rem;
+    background-color: var(--color-set);
+    border: 1px solid var(--color-set);
+    padding: .25em .5em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.winning-message button:hover {
+    background-color: #00ffcc;
+    color: black;
+    transform: scale(1.1);
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+@keyframes neonGlow {
+    0% { text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 20px var(--glow-color); }
+    50% { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 40px var(--glow-color); }
+    100% { text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 20px var(--glow-color); }
+}
+
+.winning-message.show #winningMessageText {
+    animation: neonGlow 1.5s ease-in-out infinite alternate;
+}
